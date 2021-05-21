@@ -1,0 +1,28 @@
+{
+"comments": [
+    {
+        "postId": 1,
+        "id": 1,
+        "userName": "How",
+        "body": "wow!"
+    },
+    {
+        "postId": 3,
+        "id": 2,
+        "userName": "Aux",
+        "body": "Hi, I'm wonder!"
+    },
+    {
+        "postId": 4,
+        "id": 3,
+        "userName": "Brr",
+        "body": "It's really wonder!"
+    },
+    {
+        "postId": 2,
+        "id": 4,
+        "userName": "Arr",
+        "body": "Ударим автопробегом по бездорожью и разгильдяйству!"
+    }
+]
+}
