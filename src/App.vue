@@ -1,26 +1,65 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+<div class="container column">
+  <app-resume-creator @block="addblock"></app-resume-creator>
+  <app-resume-list :addinfo="block"></app-resume-list>
+  </div>
+  <div class="container">
+  <app-comment @loadComment="loadComment" :comments="comments" :isLoad="isLoad"></app-comment>
+  <app-loader v-if="appLoad"></app-loader>
+</div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import AppResumeCreator from './components/AppResumeCreator'
+import AppResumeList from './components/AppResumeList'
+import AppComment from './components/AppComment'
+import AppLoader from './components/AppLoader'
 
 export default {
   name: 'App',
+  data() {
+    return {
+      block: [],
+      comments: [],
+      appLoad:false,
+      isLoad: false,
+    }
+  },
+  methods: {
+    addblock(val) {
+      console.log(val);
+      this.block.push(val)
+    },
+    async loadComment() {
+       this.appLoad = true
+      if (!this.isLoad) {
+        setTimeout(async () => {
+          let comment = await (
+            await fetch("http://localhost:3000/comments")
+          ).json();
+          this.comments = comment.map((item) => {
+            return { userName: item.userName, text: item.body };
+          });
+          console.log(this.comments);
+          this.isLoad = true;
+          this.appLoad = false
+        }, 1500);
+      } else {
+        this.isLoad = false;
+        this.appLoad = false
+      }
+    },
+  },
+
   components: {
-    HelloWorld
+    AppResumeCreator,
+    AppResumeList,
+    AppComment,
+    AppLoader
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
 </style>
